@@ -13,7 +13,8 @@ class Person(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    lastname = Column(String(), nullable=False)
+    lastname = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
 
 class Address(Base):
     __tablename__ = 'address'
@@ -28,6 +29,26 @@ class Address(Base):
 
     def to_dict(self):
         return {}
+
+
+class Products(Base):
+    __tablename__ = 'products'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), nullable=False)
+    description = Column(String(1024), nullable=False)
+    precio = Column(Integer, primary_key=True) # Debe ser Numeric en vez de Integer, fix it
+    categorias = relationship("Categoria", backref="productos")
+    categoria_id = Column(String(50), ForeignKey('categories.id'))
+    
+class Categoria(Base):
+    __tablename__ = 'categories'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), nullable=False)
+
+
+
+
+
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
