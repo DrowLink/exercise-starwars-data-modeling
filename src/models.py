@@ -45,6 +45,13 @@ class Categoria(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
 
+class ShoppingCart(Base):
+    _tablename__ = 'cart'
+    id = Column(Integer, primary_key=True)
+    user = relationship("Person", backref="carrito")
+    productos = relationship("Productos", backref="likes")
+
+
 
 
 
